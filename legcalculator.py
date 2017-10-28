@@ -4,9 +4,6 @@ class BaseCalculator:
 	def __init__(self, config):
 		self.config = config
 
-
-
-
 class ThreeCoxa(BaseCalculator):
 	def __init__(self, config):
 		BaseCalculator.__init__(self, config)
@@ -20,19 +17,19 @@ class ThreeCoxa(BaseCalculator):
 			c = self.config
 
 
-			# compute coxa-related distances
+			# coxa-related distances
 			gf = sqrt(pow(gx - fx, 2) + pow(gy - fy, 2))
 			hf = sqrt(pow(gf, 2) - pow(c["gh"], 2))
 			jh = c["gh"] * hf / gf
 			gj = sqrt(pow(c["gh"], 2) - pow(jh, 2))
 
-			# compute coxa-related positions
+			# coxa-related positions
 			jx = gx + (fx - gx) / gf * gj
 			jy = gy + (fy - gy) / gf * gj
 			hx = jx + (jy - gy) / gj * jh
 			hy = jy + (gx - jx) / gj * jh
 
-			# compute coxa-related angles
+			# coxa-related angles
 			tmp = acos((hx - gx) / c["gh"])
 			xhf = tmp + pi / 2 if hy > gy else -tmp + pi / 2
 			tmp = (xhf - go)
@@ -42,7 +39,7 @@ class ThreeCoxa(BaseCalculator):
 			if(abs(coxaangle) > pi):
 				coxaangle -= copysign(coxaangle, 1) * 2 * pi
 
-			# compute foreleg-related data (relative to coxa)
+			# foreleg-related data (relative to coxa)
 			fx = sqrt(pow(fx - hx, 2) + pow(fy - hy, 2))
 			fy = fz - gz
 			bf = sqrt(pow(fx - c["hbxy"], 2) + pow(fy - c["hbz"], 2))
@@ -51,6 +48,7 @@ class ThreeCoxa(BaseCalculator):
 
 			# final outer servo angle
 			outerangle = ebf + xbf
+
 			ex = c["hbxy"] + cos(outerangle) * c["be"]
 			ey = c["hbz"] + sin(outerangle) * c["be"]
 			dx = ex - (fx - ex) / c["ef"] * c["de"]
@@ -63,13 +61,8 @@ class ThreeCoxa(BaseCalculator):
 			innerangle = xad + cad
 
 			return coxaangle, outerangle, innerangle
+
+		# invalid values for atirhmetic operations
 		except ValueError:
-			print("invalid input arguments")
+			print("invalid input values")
 			return False
-
-
-config = {"gx": [49.85], "gy": [84.85], "gz": [0], "go": [0.79], "gh": 19.2, "haxy": -12, "haz": 14, "hbxy": 12, "hbz": 14, "ac": 55, "cd": 50, "be": 40, "de": 40, "ef": 90}
-
-calc = ThreeCoxa(config)
-
-print(calc.getangles(46.14, 142.73, -70, 0))
