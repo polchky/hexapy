@@ -1,12 +1,10 @@
 from math import sqrt, pow, cos, acos, sin, asin, pi, copysign
 
-class BaseCalculator:
-	def __init__(self, config):
-		self.config = config
+from .basecalculator import BaseCalculator
 
-class ThreeCoxa(BaseCalculator):
+class ThreeCoxaCalculator(BaseCalculator):
 	def __init__(self, config):
-		BaseCalculator.__init__(self, config)
+		super().__init__(config)
 
 	def getangles(self, fx, fy, fz, leg):
 		try:
