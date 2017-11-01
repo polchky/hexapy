@@ -28,6 +28,12 @@ class Hexapod():
             error = True
         if error:
             return False
-        print("starting")
+        print("starting hexapod...")
+
+        self.inputsource.setup()
+        while not self.inputsource.ready():
+            time.sleep(2)
+            print("waiting on input source...")
+        print("input source ready")
 
         return True

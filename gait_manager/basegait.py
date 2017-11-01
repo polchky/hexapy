@@ -2,10 +2,15 @@
 class BaseGait():
     def __init__(self, config):
         self.config = config
-        self.orientation = 0
         self.direction = 0
         self.speed = 0
-        print("ok")
 
-    def setneworder(self):
-        return 1
+    def march(self, direction, speed):
+        self.direction = direction
+        self.speed = speed
+
+    def turn(self, radians):
+        return
+
+    def static(self, height, direction, angle):
+        return

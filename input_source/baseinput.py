@@ -4,6 +4,7 @@ class BaseInput():
 
     def getinput(self):
         return
+        
     def setup(self):
         return False
 
