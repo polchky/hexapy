@@ -7,8 +7,12 @@ from input_source.bleinput import BLEInput
 config = {}
 
 hexapod = Hexapod()
-hexapod.setlegcalculator(ThreeCoxaCalculator(config))
-hexapod.setgaitmanager(SimpleGait(config))
-hexapod.setinputsource(BLEInput(config))
+lc = ThreeCoxaCalculator(config)
+gait = SimpleGait(config)
+gait.setlegcalculator(lc)
+inputsource = BLEInput(config)
+
+hexapod.setgaitmanager(gait)
+hexapod.setinputsource(inputsource)
 
 hexapod.start()

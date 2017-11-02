@@ -1,5 +1,5 @@
 
-class BaseGait():
+class BaseGait:
     def __init__(self, config):
         self.config = config
         self.direction = 0
