@@ -1,12 +1,12 @@
 from math import sqrt, pow, cos, acos, sin, asin, pi, copysign
 
-from .basecalculator import BaseCalculator
+from .base_calculator import BaseCalculator
 
-class ThreeCoxaCalculator(BaseCalculator):
+class BlocCalculator(BaseCalculator):
 	def __init__(self, config):
 		super().__init__(config)
 
-	def getangles(self, fx, fy, fz, leg):
+	def get_angles(self, fx, fy, fz, leg):
 		try:
 			gx = self.config["gx"][leg]
 			gy = self.config["gy"][leg]
@@ -33,9 +33,9 @@ class ThreeCoxaCalculator(BaseCalculator):
 			tmp = (xhf - go)
 
 			# final coxa servo angle
-			coxaangle = tmp % (2 * pi) if tmp > 0 else tmp % (-2 * pi)
-			if(abs(coxaangle) > pi):
-				coxaangle -= copysign(coxaangle, 1) * 2 * pi
+			coxa_angle = tmp % (2 * pi) if tmp > 0 else tmp % (-2 * pi)
+			if(abs(coxa_angle) > pi):
+				coxa_angle -= copysign(coxa_angle, 1) * 2 * pi
 
 			# foreleg-related data (relative to coxa)
 			fx = sqrt(pow(fx - hx, 2) + pow(fy - hy, 2))
@@ -45,10 +45,10 @@ class ThreeCoxaCalculator(BaseCalculator):
 			xbf = -pi / 2 + asin((fx - c["hbxy"]) / bf)
 
 			# final outer servo angle
-			outerangle = ebf + xbf
+			outer_angle = ebf + xbf
 
-			ex = c["hbxy"] + cos(outerangle) * c["be"]
-			ey = c["hbz"] + sin(outerangle) * c["be"]
+			ex = c["hbxy"] + cos(outer_angle) * c["be"]
+			ey = c["hbz"] + sin(outer_angle) * c["be"]
 			dx = ex - (fx - ex) / c["ef"] * c["de"]
 			dy = ey - (fy  - ey) / c["ef"] * c["de"]
 			ad = sqrt(pow(dx - c["haxy"], 2) + pow(dy - c["haz"], 2))
@@ -56,9 +56,9 @@ class ThreeCoxaCalculator(BaseCalculator):
 			cad = acos((c["ac"] ** 2 + ad ** 2 - c["cd"] ** 2) / (2 * c["ac"] * ad))
 
 			# final inner servo angle
-			innerangle = xad + cad
+			inner_angle = xad + cad
 
-			return coxaangle, outerangle, innerangle
+			return coxa_angle, outer_angle, inner_angle
 
 		# invalid values for atirhmetic operations
 		except ValueError:

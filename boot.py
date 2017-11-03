@@ -1,18 +1,20 @@
-from hexapod import Hexapod
-from leg_calculator.threecoxacalculator import ThreeCoxaCalculator
-from gait_manager.simplegait import SimpleGait
-from input_source.bleinput import BLEInput
+import hexapod
+import calculator.bloc_calculator
+import gait.simple_gait
+import command.ble_command
 
 
 config = {}
 
-hexapod = Hexapod()
-lc = ThreeCoxaCalculator(config)
-gait = SimpleGait(config)
-gait.setlegcalculator(lc)
-inputsource = BLEInput(config)
+def start():
+	hexapod = hexapod.get_hexapod()
 
-hexapod.setgaitmanager(gait)
-hexapod.setinputsource(inputsource)
+	calculator = bloc_calculator.BlocCalculator(config)
+	gait = simple_gait.SimpleGait(config)
+	gait.set_calculator(calculator)
+	command = ble_command.BLECommand(config)
 
-hexapod.start()
+	hexapod.set_gait(gait)
+	hexapod.set_command(command)
+
+	hexapod.start()
