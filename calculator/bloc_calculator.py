@@ -1,10 +1,11 @@
 from math import sqrt, pow, cos, acos, sin, asin, pi, copysign
 
-from .base_calculator import BaseCalculator
+#from .base_calculator import BaseCalculator
 
-class BlocCalculator(BaseCalculator):
+class BlocCalculator():
 	def __init__(self, config):
-		super().__init__(config)
+		self.config = config
+		#super().__init__(config)
 
 	def get_angles(self, fx, fy, fz, leg):
 		try:
