@@ -59,7 +59,7 @@ class BlocCalculator():
 			# final inner servo angle
 			inner_angle = xad + cad
 
-			return coxa_angle, outer_angle, inner_angle
+			return {"inner": inner_angle, "coxa": coxa_angle, "outer": outer_angle}
 
 		# invalid values for atirhmetic operations
 		except ValueError:
