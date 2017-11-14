@@ -1,5 +1,15 @@
 class BaseCommand:
-    _states = {"SLEEP": "sleep", "ACTIVE": "active", "EMERGENCY_STOP": "stop"}
+
+    STICK_LX = "STICK_LX"
+    STICK_LY = "STICK_LY"
+    STICK_RX = "STICK_RX"
+    STICK_RY = "STICK_RY"
+
+    BTN_SLEEP = "BTN_SLEEP"
+    BTN_EMERGENCY_STOP = "BTN_EMERGENCY_STOP"
+    BTN_WAKE_UP = "BTN_WAKE_UP"
+    
+
 
     def __init__(self, config):
         self.config = config
@@ -16,11 +26,8 @@ class BaseCommand:
     def get_input(self):
         return self.inputs
 
-    def update(self):
+    def clicked(self, button):
         return True
 
-    def setup(self):
-        return False
-
-    def ready(self):
-        return False
+    def value(self, input):
+        return 0
